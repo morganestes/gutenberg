@@ -206,10 +206,10 @@ export class BlockListBlock extends Component {
 	 * @see https://developer.mozilla.org/en-US/docs/Web/Events/mouseenter
 	 */
 	maybeHover() {
-		const { isMultiSelected, isSelected } = this.props;
+		const { isPartOfMultiSelection, isSelected } = this.props;
 		const { isHovered } = this.state;
 
-		if ( isHovered || isMultiSelected || isSelected ||
+		if ( isHovered || isPartOfMultiSelection || isSelected ||
 				this.props.isMultiSelecting || this.hadTouchStart ) {
 			return;
 		}
@@ -584,6 +584,7 @@ const applyWithSelect = withSelect( ( select, { uid, rootUID } ) => {
 		getPreviousBlockUid,
 		getNextBlockUid,
 		getBlock,
+		isAncestorMultiSelected,
 		isBlockMultiSelected,
 		isFirstMultiSelectedBlock,
 		isMultiSelecting,
@@ -602,10 +603,11 @@ const applyWithSelect = withSelect( ( select, { uid, rootUID } ) => {
 	const block = getBlock( uid );
 	const previousBlockUid = getPreviousBlockUid( uid );
 	const previousBlock = getBlock( previousBlockUid );
-
+	const isMultiSelected = isBlockMultiSelected( uid );
 	return {
 		nextBlockUid: getNextBlockUid( uid ),
-		isMultiSelected: isBlockMultiSelected( uid ),
+		isMultiSelected,
+		isPartOfMultiSelection: isMultiSelected || isAncestorMultiSelected( uid ),
 		isFirstMultiSelected: isFirstMultiSelectedBlock( uid ),
 		isMultiSelecting: isMultiSelecting(),
 		hasSelectedInnerBlock: isParentOfSelectedBlock,
