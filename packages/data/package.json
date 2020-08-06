@@ -24,7 +24,7 @@
 		"@wordpress/element": "^1.0.0-alpha.1",
 		"@wordpress/is-shallow-equal": "1.0.2",
 		"equivalent-key-map": "0.2.0",
-		"lodash": "4.17.5",
+		"lodash": "4.17.19",
 		"redux": "3.7.2"
 	},
 	"devDependencies": {
